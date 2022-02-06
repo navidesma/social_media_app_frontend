@@ -1,0 +1,20 @@
+.navbarContainer {
+  bottom: 0;
+  position: sticky;
+  width: 100%;
+  height: 50px;
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  background: var(--dark-color);
+}
+
+a {
+  margin: 0 auto;
+}
+
+.activeLink {
+  border-bottom: white 2px solid;
+}

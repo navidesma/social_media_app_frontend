@@ -1,0 +1,60 @@
+.itemContainer {
+  transform: translateX(-300px);
+  margin: 0 10px;
+  margin-bottom: 5px;
+  display: flex;
+  flex-direction: column;
+  border: #333 solid 1px;
+  border-radius: 5px;
+  background: #f4f4f4;
+  /* transition: all 1s ease; */
+  animation: itemAnimation 1s forwards;
+}
+
+@keyframes itemAnimation {
+  to {
+    transform: translateX(0);
+  }
+}
+
+.itemContainer .posterInfo a {
+  color: black;
+  display: flex;
+  justify-content: left;
+  height: 10%;
+  padding: 0.7rem;
+}
+.itemContainer .posterInfo a h3 {
+  margin-left: 10px;
+}
+
+.itemContainer .posterInfo a img {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.itemContainer .imgSection {
+  width: 100%;
+  height: 40%;
+}
+.itemContainer .imgSection img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.itemContainer .contentSection {
+  height: 50%;
+  padding: 1rem;
+}
+.itemContainer .contentSection p {
+  margin: 1rem 0;
+}
+
+.itemContainer i:active {
+  color: red;
+}
+

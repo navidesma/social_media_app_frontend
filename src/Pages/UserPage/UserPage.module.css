@@ -1,0 +1,78 @@
+.main {
+  height: 100vh;
+}
+
+.topSectionContainer {
+  border-bottom: 1px solid #333;
+  margin-bottom: 10px;
+}
+
+.upper {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.4rem;
+}
+
+.upper p {
+  padding-right: 0.5rem;
+  padding-top: 0.5rem;
+  font-size: 1.5rem;
+  transform: rotate(90deg);
+}
+.upper h2 {
+  margin-left: 10px;
+  margin-top: 5px;
+}
+
+.middle {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.logo {
+  width: 50%;
+}
+
+.logo img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+}
+
+.followSection {
+  /* width: 50%; */
+  display: flex;
+  justify-content: space-between;
+}
+.followSection > div {
+  text-align: center;
+  padding: 0.5rem;
+}
+.followSection > div > p:first-child {
+  font-weight: bolder;
+}
+
+/* Posts Section */
+.postsContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Subscribe Section */
+.subscribeContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.subscribeButton {
+  width: 70%;
+  padding: 0.7rem 1rem;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--light-color);
+  color: white;
+  font-weight: bolder;
+  font-size: 1.1rem;
+}

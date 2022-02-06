@@ -1,21 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { navidPosts } from "./posts";
 
-const navidPosts = [
-  { postId: "", posterId: "aaa", postImg: "", postDesc: "", postDate: "" },
-  { postId: "", posterId: "aaa", postImg: "", postDesc: "", postDate: "" },
-  { postId: "", posterId: "aaa", postImg: "", postDesc: "", postDate: "" },
-];
+import MainLogo from '../img/new_logo.png';
+
 const navid = {
-  userId: "aaa",
   userName: "navid_esma",
   info: "Navid Esma",
   following: "",
   followers: "",
-  profilePicture: "",
+  profilePicture: MainLogo,
   posts: navidPosts,
 };
 
-const users = [navid];
+const users = {aaa: navid};
 
 const usersSlice = createSlice({
   name: "users",
@@ -23,8 +20,7 @@ const usersSlice = createSlice({
   reducers: {
     addUser() {},
     changeUserName() {},
-
-  }
+  },
 });
 
 export const usersActions = usersSlice.actions;
