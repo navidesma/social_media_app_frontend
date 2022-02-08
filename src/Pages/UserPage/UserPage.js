@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { usersActions } from "../../store/users-slice";
 import styles from "./UserPage.module.css";
@@ -52,12 +52,12 @@ function UserPage() {
               <p>Posts</p>
             </div>
             <div>
-              <p>{followers.length}</p>
-              <p>Followers</p>
+              <p><Link to={`/follow/${userId}/followers`}>{followers.length}</Link></p>
+              <p><Link to={`/follow/${userId}/followers`}>Followers</Link></p>
             </div>
             <div>
-              <p>{following.length}</p>
-              <p>Following</p>
+              <p><Link to={`/follow/${userId}/following`}>{following.length}</Link></p>
+              <p><Link to={`/follow/${userId}/following`}>Following</Link></p>
             </div>
           </div>
         </div>

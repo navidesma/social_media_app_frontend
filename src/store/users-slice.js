@@ -16,7 +16,7 @@ const pashmakolah = {
   userName: "pashmakolah",
   info: "Pashmakolah",
   following: [],
-  followers: [],
+  followers: ["aaa"],
   profilePicture: pashmakolahLogo,
   posts: pashmakolahPosts,
 };

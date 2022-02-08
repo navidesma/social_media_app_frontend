@@ -16,6 +16,7 @@ export default function HomePage() {
 
   return (
     <>
+    <h2>Home</h2>
       {posts.map((post) => (
         <PostItem key={post.postId} post={post} />
       ))}
