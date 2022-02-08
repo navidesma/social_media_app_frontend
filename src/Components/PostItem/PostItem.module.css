@@ -16,15 +16,19 @@
     transform: translateX(0);
   }
 }
+.itemContainer .posterInfo {
+  display: flex;
+  justify-content: space-between;
+  height: 10%;
+  padding: 0.7rem;
+}
 
 .itemContainer .posterInfo a {
   color: black;
   display: flex;
-  justify-content: left;
-  height: 10%;
-  padding: 0.7rem;
 }
 .itemContainer .posterInfo a h3 {
+  margin-top: 7px;
   margin-left: 10px;
 }
 

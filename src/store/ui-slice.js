@@ -8,7 +8,10 @@ const initialState = {
 const uiSlice = createSlice({
   name: "ui",
   initialState,
-  reducers: {},
+  reducers: {
+    login() {},
+    logout() {},
+  },
 });
 
 export const uiActions = uiSlice.actions;

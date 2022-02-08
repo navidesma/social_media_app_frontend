@@ -1,18 +1,21 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import PostItem from "../../Components/PostItem/PostItem";
 
-export default function HomePage() {
+
+export default function PostsPage() {
   const [posts, setPosts] = useState([]);
-  
+
   const { users } = useSelector((state) => state);
 
+  const { userId, postId } = useParams();
+
+  const user = users[`${userId}`];
+
   useEffect(() => {
-    setPosts([]);
-    for (const userId in users) {
-      setPosts((prevState) => prevState.concat(users[`${userId}`].posts));
-    }
-  }, [users]);
+    setPosts(user.posts);
+  }, [user]);
 
   return (
     <>

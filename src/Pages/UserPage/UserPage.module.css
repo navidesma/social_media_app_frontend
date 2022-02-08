@@ -59,20 +59,9 @@
   flex-wrap: wrap;
 }
 
-/* Subscribe Section */
-.subscribeContainer {
+/* subscribe Section */
+.subscribeButtonContainer {
   display: flex;
   justify-content: center;
-  margin-bottom: 1rem;
-}
-
-.subscribeButton {
-  width: 70%;
-  padding: 0.7rem 1rem;
-  border: none;
-  border-radius: 5px;
-  background-color: var(--light-color);
-  color: white;
-  font-weight: bolder;
-  font-size: 1.1rem;
+  align-items: center;
 }

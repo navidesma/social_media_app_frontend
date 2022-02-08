@@ -1,32 +1,39 @@
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { usersActions } from "../../store/users-slice";
 import styles from "./UserPage.module.css";
 import PostLink from "../../Components/PostLink/PostLink";
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import Button from "../../Components/Button/Button";
 
 function UserPage() {
   const { users } = useSelector((state) => state);
-  const {mainUserId} = useSelector(state => state.ui);
+  const { mainUserId } = useSelector((state) => state.ui);
 
-  const { userId } = useParams();
+  const dispatch = useDispatch();
+
+  // To not get an error when you type url/user
+  let { userId } = useParams();
+  if (!userId) {
+    userId = mainUserId;
+  }
+
   const logo = users[`${userId}`].profilePicture;
   const followers = users[`${userId}`].followers;
   const following = users[`${userId}`].following;
   const posts = users[`${userId}`].posts;
 
-  // let subscribeButtonText;
-  // const showSubscribeButton = userId !== ctx.mainUserId;
-  // const subscribeButtonText = showSubscribeButton ? (ctx.users[`${ctx.mainUserId}`].following)
-  // if (showSubscribeButton) {
-  //   if (
-  //     (ctx.users[`${ctx.mainUserId}`].following).includes(
-  //       ctx.users[`${userId}`].username
-  //     )
-  //   ) {
-  //     subscribeButtonText = "Unfollow";
-  //   } else {
-  //     subscribeButtonText = "Follow";
-  //   }
-  // }
+  let subscribed = false;
+  if (users["aaa"].following.includes(userId)) {
+    subscribed = true;
+  }
+  const subHandler = () => {
+    subscribed = !subscribed;
+    if (subscribed) {
+      dispatch(usersActions.addToFollowing(userId));
+    } else {
+      dispatch(usersActions.removeFromFollowing(userId));
+    }
+  };
 
   return (
     <div className={styles.main}>
@@ -54,17 +61,19 @@ function UserPage() {
             </div>
           </div>
         </div>
-        {/* <div className={styles.subscribeContainer}>
-          {showSubscribeButton && (
-            <button type="btn" className={styles.subscribeButton}>
-              {subscribeButtonText}
-            </button>
-          )}
-        </div> */}
+        {!(userId === mainUserId) && (
+          <div className={styles.subscribeButtonContainer}>
+            <Button
+              isInUserPage={true}
+              subscribed={subscribed}
+              subHandler={subHandler}
+            />
+          </div>
+        )}
       </div>
       <div className={styles.postsContainer}>
         {posts.map((post) => (
-          <PostLink post={post} />
+          <PostLink key={post.postId} post={post} />
         ))}
       </div>
     </div>
