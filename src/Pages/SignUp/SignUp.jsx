@@ -27,8 +27,8 @@ export default function SignUp() {
     // validation and using ref is not added yet
     const fd = new FormData();
     fd.append("image", selectedFile);
-    fd.append("email", "test@test.ir");
-    fd.append("name", "navidesma");
+    fd.append("email", "pashmak@test.ir");
+    fd.append("name", "pashmakolah");
     fd.append("password", "salam12345");
 
     const sendAsync = async() => {

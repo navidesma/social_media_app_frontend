@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import FollowItem from "../../Components/FollowItem/FollowItem";
@@ -5,18 +6,34 @@ import FollowItem from "../../Components/FollowItem/FollowItem";
 export default function FollowPage() {
   const { userId, which } = useParams();
 
-  const { users } = useSelector((state) => state);
+  // const { users } = useSelector((state) => state);
+  const [follow, setFollow] = useState(null);
 
-  let followList;
-  if (which === "following") {
-    followList = users[`${userId}`].following;
-  } else if (which === "followers") {
-    followList = users[`${userId}`].followers;
-  }
+  useEffect(() => {
+    const getPosts = async () => {
+      try {
+        const result = await fetch(`http://localhost:8080/user/get-${which}/` + userId);
+        if (!result) {
+          throw new Error("no user found");
+        }
+        const toJSON = await result.json();
+        console.log("!!!!!!!!!!!!!!1", toJSON.user.followers);
+        if (which === "followers") {
+          setFollow(toJSON.user.followers);
+        } else if (which === "following") {
+          setFollow(toJSON.user.following);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getPosts();
+  }, []);
+
   return (
     <>
-      {followList &&
-        followList.map((user) => <FollowItem key={user} userId={user} />)}
+      {follow &&
+        follow.map((user) => <FollowItem key={user._id} user={user} />)}
     </>
   );
-}
+  }

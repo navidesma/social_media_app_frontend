@@ -16,7 +16,7 @@ function Navbar() {
         <HomeIcon sx={{color: 'white'}}/>
       </NavLink>
       <NavLink
-        to={`/user/${mainUserId}`}
+        to={`/user`}
         className={(navData) => (navData.isActive ? styles.activeLink : "")}
       >
         <PersonIcon sx={{color: 'white'}}/>

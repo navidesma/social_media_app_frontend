@@ -10,7 +10,7 @@ export default function PostItem(props) {
   const dispatch = useDispatch();
 
   const users = useSelector((state) => state.users);
-  const userId = props.post._id;
+  const userId = props.post.creator._id;
   // const userName = users[`${userId}`].userName;
   // const logo = users[`${userId}`].profilePicture;
 
