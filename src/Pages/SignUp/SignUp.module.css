@@ -1,0 +1,10 @@
+.formContainer {
+  text-align: center;
+  margin: 30px auto 20px;
+}
+
+.imagePreview {
+  width: 100px;
+  height: 100px;
+  border-radius: 5px;
+}

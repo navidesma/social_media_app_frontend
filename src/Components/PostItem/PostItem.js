@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import Button from "../Button/Button";
 import styles from "./PostItem.module.css";
 import { usersActions } from "../../store/users-slice";
-import { useEffect } from "react";
+
+const imagePrefix = "http://127.0.0.1:8080/";
 
 export default function PostItem(props) {
   const dispatch = useDispatch();
@@ -28,20 +29,19 @@ export default function PostItem(props) {
       dispatch(usersActions.removeFromFollowing(userId));
     }
   };
-
   return (
     <div className={styles.itemContainer} id={props.post.postId}>
       <div className={styles.posterInfo}>
         <Link to={`/user/${userId}`}>
-          {/* <img src={logo} alt="poster logo" /> */}
-          {/* <h3>{userName}</h3> */}
+          <img src={ imagePrefix + props.post.creator.profilePicture} alt="poster logo" />
+          <h3>{props.post.creator.name}</h3>
         </Link>
         {!(mainUserId === userId) && (
           <Button subscribed={subscribed} subHandler={subHandler} />
         )}
       </div>
       <div className={styles.imgSection}>
-        <img src={`http://localhost:8080/${props.post.imageUrl}`} alt="post" />
+        <img src={ imagePrefix + props.post.imageUrl} alt="post" />
       </div>
       <div className={styles.contentSection}>
         <p>{props.post.description}</p>
