@@ -1,10 +1,41 @@
+.mainContainer {
+  margin: 0 10px
+}
+
+h2 {
+  margin-top: 10px;
+  text-align: center;
+  color: var(--dark-color)
+}
+
 .formContainer {
   text-align: center;
   margin: 30px auto 20px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  border-radius: 5px;
 }
 
 .imagePreview {
   width: 100px;
   height: 100px;
+  border-radius: 50%;
+}
+
+.inputSection {
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+}
+.inputSection label {
+  text-align: center;
+  font-size: 1.3rem;
+  margin-bottom: 4px;
+}
+.inputSection input[type=text], input[type=password], input[type=email], input[type=file]{
+  margin: 0 10px;
+  padding: 10px;
+  border: 1px solid #c3c3c3;
   border-radius: 5px;
 }
