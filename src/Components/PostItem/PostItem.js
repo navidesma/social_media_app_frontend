@@ -9,7 +9,7 @@ const imagePrefix = "http://127.0.0.1:8080/";
 export default function PostItem(props) {
   const dispatch = useDispatch();
 
-  const users = useSelector((state) => state.users);
+  // const users = useSelector((state) => state.users);
   const userId = props.post.creator._id;
   // const userName = users[`${userId}`].userName;
   // const logo = users[`${userId}`].profilePicture;
@@ -17,17 +17,17 @@ export default function PostItem(props) {
   const { mainUserId } = useSelector((state) => state.ui);
 
   let subscribed = false;
-  if (users["aaa"].following.includes(userId)) {
-    subscribed = true;
-  }
+  // if (users["aaa"].following.includes(userId)) {
+  //   subscribed = true;
+  // }
 
   const subHandler = () => {
-    subscribed = !subscribed;
-    if (subscribed) {
-      dispatch(usersActions.addToFollowing(userId));
-    } else {
-      dispatch(usersActions.removeFromFollowing(userId));
-    }
+    // subscribed = !subscribed;
+    // if (subscribed) {
+    //   dispatch(usersActions.addToFollowing(userId));
+    // } else {
+    //   dispatch(usersActions.removeFromFollowing(userId));
+    // }
   };
   return (
     <div className={styles.itemContainer} id={props.post.postId}>

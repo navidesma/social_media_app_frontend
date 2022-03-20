@@ -16,7 +16,7 @@ function App() {
       <Route path='home' element={<HomePage/>}/>
       <Route path="user" element={<UserPage/>}/>
       <Route path="user/:userId" element={<UserPage/>}/>
-      <Route path='posts/:userId/:postId' element={<PostsPage/>} />
+      <Route path='posts/:userId' element={<PostsPage/>} />
       <Route path='follow' element={<FollowPage/>} />
       <Route path='follow/:userId/:which' element={<FollowPage/>} />
       <Route path='add-post' element={<CreatePost/>}/>
