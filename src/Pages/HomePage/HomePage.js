@@ -1,7 +1,8 @@
+import styles from "./HomePage.module.css";
+
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import PostItem from "../../Components/PostItem/PostItem";
-
 
 export default function HomePage() {
   const [posts, setPosts] = useState([]);
@@ -26,9 +27,11 @@ export default function HomePage() {
   return (
     <>
       <h2>Home</h2>
-      {posts.map((post) => (
-        <PostItem key={post._id} post={post} />
-      ))}
+      <div className={styles.container}>
+        {posts.map((post) => (
+          <PostItem key={post._id} post={post} />
+        ))}
+      </div>
     </>
   );
 }

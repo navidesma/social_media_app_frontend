@@ -56,7 +56,9 @@
 /* Posts Section */
 .postsContainer {
   display: flex;
+  flex: 1 0 33.33%;
   flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 /* subscribe Section */

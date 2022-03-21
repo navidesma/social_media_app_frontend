@@ -1,3 +1,5 @@
+import styles from "./PostsPage.module.css";
+
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -39,7 +41,7 @@ export default function PostsPage() {
   console.log(user);
 
   return (
-    <>
+    <div className={styles.container}>
       {user &&
         user.posts.map((post) => (
           <PostItem
@@ -54,6 +56,6 @@ export default function PostsPage() {
             }}
           />
         ))}
-    </>
+    </div>
   );
 }

@@ -1,6 +1,7 @@
 .navbarContainer {
   bottom: 0;
-  position: sticky;
+  position: fixed;
+  overflow: hidden;
   width: 100%;
   height: 50px;
   background: white;

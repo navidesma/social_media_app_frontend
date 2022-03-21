@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import styles from "./CreatePost.module.css";
 
 export default function CreatePost() {
+  const [desc, setDesc] = useState("");
+
+  const [formIsValid, setFormIsValid] = useState(true);
   const [selectedFile, setSelectedFile] = useState();
   const [preview, setPreview] = useState();
   useEffect(() => {
@@ -13,42 +16,69 @@ export default function CreatePost() {
     const objectUrl = URL.createObjectURL(selectedFile);
     setPreview(objectUrl);
 
-    return () => {URL.revokeObjectURL(objectUrl);};
+    return () => {
+      URL.revokeObjectURL(objectUrl);
+    };
   }, [selectedFile]);
-  const selectHandler = (event) => {
+  const imageChangeHandler = (event) => {
     if (!event.target.files || event.target.files.length === 0) {
       setSelectedFile(undefined);
       return;
     }
 
-    setSelectedFile(event.target.files[0])
-  }
+    setSelectedFile(event.target.files[0]);
+  };
+
+  const descChangeHandler = (event) => {
+    setDesc(event.target.value);
+  };
+
   const finishForm = (event) => {
     event.preventDefault();
-    const fd = new FormData();
-    fd.append("description", "DESC_" +  new Date().toISOString());
-    fd.append("image", selectedFile);
+    setFormIsValid(true);
 
-    const sendAsync = async() => {
-      const result = await fetch("http://127.0.0.1:8080/post/create-posts", {method: "POST", body: fd})
-      console.log(result);
+    if (!selectedFile) {
+      setFormIsValid(false);
     }
-    sendAsync();
-  }
+
+    if (formIsValid) {
+      const fd = new FormData();
+      fd.append("description", desc.trim());
+      fd.append("image", selectedFile);
+      const sendAsync = async () => {
+        const result = await fetch("http://127.0.0.1:8080/post/create-posts", {
+          method: "POST",
+          body: fd,
+        });
+        console.log(result);
+      };
+      sendAsync();
+    }
+  };
   return (
-    <div className={styles.formContainer} onSubmit={finishForm}>
-      <form>
-        <div>
-          <label htmlFor="image">Add Image:</label>
-          <input type="file" id="image" onChange={selectHandler}/>
-          {selectedFile && <img src={preview} alt="" className={styles.imagePreview}/>}
-        </div>
-        <div>
-          <label htmlFor="desc">Add Post Description</label>
-          <input type="text" id="desc" />
-        </div>
-        <button type="submit">Create Post</button>
-      </form>
+    <div className={styles.mainContainer}>
+      <h2>Create New Post</h2>
+      <div className={styles.formContainer} onSubmit={finishForm}>
+        <form>
+          <div>
+            <div className={styles.inputSection}>
+              <label htmlFor="image">Add Image:</label>
+              <input type="file" id="image" onChange={imageChangeHandler} />
+              {!formIsValid && <p>Each post should have an image</p>}
+            </div>
+            {selectedFile && (
+              <img src={preview} alt="" className={styles.imagePreview} />
+            )}
+          </div>
+          <div>
+            <div className={styles.inputSection}>
+              <label htmlFor="desc">Add Post Description:</label>
+              <textarea id="desc" rows="4" cols="50" onChange={descChangeHandler} />
+            </div>
+          </div>
+          <button type="submit">Create Post</button>
+        </form>
+      </div>
     </div>
   );
 }
