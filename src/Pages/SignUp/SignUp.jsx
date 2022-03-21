@@ -80,8 +80,9 @@ export default function SignUp() {
         const result = await fetch("http://127.0.0.1:8080/auth/signup", {
           method: "PUT",
           body: fd,
-        }); 
-        console.log(result);
+        });
+        const transform = await result.json()
+        console.log(transform);
       };
       sendAsync();
     }

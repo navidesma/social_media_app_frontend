@@ -6,9 +6,8 @@ import PostLink from "../../Components/PostLink/PostLink";
 import Button from "../../Components/Button/Button";
 import { useEffect, useState } from "react";
 
-const mainUserId = "62363c0b5d97b507588ce88e";
 const imagePrefix = "http://127.0.0.1:8080/";
-
+const mainUserId = localStorage.getItem("mainUserId");
 function UserPage() {
   // const { users } = useSelector((state) => state);
   // const { mainUserId } = useSelector((state) => state.ui);
@@ -26,7 +25,14 @@ function UserPage() {
   useEffect(() => {
     const getPosts = async () => {
       try {
-        const result = await fetch("http://localhost:8080/user/get-user/" + userId);
+        const result = await fetch(
+          "http://localhost:8080/user/get-user/" + userId,
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token")
+            },
+          }
+        );
         if (!result) {
           throw new Error("no user found");
         }
@@ -54,33 +60,46 @@ function UserPage() {
   //     dispatch(usersActions.removeFromFollowing(userId));
   //   }
   // };
-
-  const content = user !== null? ( <div className={styles.main}>
-    <div className={styles.topSectionContainer}>
-      <div className={styles.upper}>
-        <h2>{user.name}</h2>
-        {userId === mainUserId && <p>|||</p>}
-      </div>
-      <div className={styles.middle}>
-        <div className={styles.logo}>
-          <img src={imagePrefix + user.profilePicture} alt="" />
-        </div>
-        <div className={styles.followSection}>
-          <div>
-            <p>{user.posts.length}</p>
-            <p>Posts</p>
+  return (
+    <>
+      {user && <div className={styles.main}>
+        <div className={styles.topSectionContainer}>
+          <div className={styles.upper}>
+            <h2>{user.name}</h2>
+            {userId === mainUserId && <p>|||</p>}
           </div>
-          <div>
-            <p><Link to={`/follow/${userId}/followers`}>{(user.followers).length}</Link></p>
-            <p><Link to={`/follow/${userId}/followers`}>Followers</Link></p>
+          <div className={styles.middle}>
+            <div className={styles.logo}>
+              <img src={imagePrefix + user.profilePicture} alt="" />
+            </div>
+            <div className={styles.followSection}>
+              <div>
+                <p>{user.posts.length}</p>
+                <p>Posts</p>
+              </div>
+              <div>
+                <p>
+                  <Link to={`/follow/${userId}/followers`}>
+                    {user.followers.length}
+                  </Link>
+                </p>
+                <p>
+                  <Link to={`/follow/${userId}/followers`}>Followers</Link>
+                </p>
+              </div>
+              <div>
+                <p>
+                  <Link to={`/follow/${userId}/following`}>
+                    {user.following.length}
+                  </Link>
+                </p>
+                <p>
+                  <Link to={`/follow/${userId}/following`}>Following</Link>
+                </p>
+              </div>
+            </div>
           </div>
-          <div>
-            <p><Link to={`/follow/${userId}/following`}>{(user.following).length}</Link></p>
-            <p><Link to={`/follow/${userId}/following`}>Following</Link></p>
-          </div>
-        </div>
-      </div>
-      {/* {!(userId === mainUserId) && (
+          {/* {!(userId === mainUserId) && (
         <div className={styles.subscribeButtonContainer}>
           <Button
             isInUserPage={true}
@@ -89,19 +108,14 @@ function UserPage() {
           />
         </div>
       )} */}
-    </div>
-    <div className={styles.postsContainer}>
-      {user.posts.map((post) => (
-        <PostLink key={post._id} post={post} />
-      ))}
-    </div>
-  </div>) : <h1>no content</h1>;
-
-  return (
-    <>
-   {content}
-   {/* {!user && <h1>No content</h1>} */}
-   </>
+        </div>
+        <div className={styles.postsContainer}>
+          {user.posts.map((post) => (
+            <PostLink key={post._id} post={post} />
+          ))}
+        </div>
+      </div>}
+    </>
   );
 }
 

@@ -49,6 +49,9 @@ export default function CreatePost() {
         const result = await fetch("http://127.0.0.1:8080/post/create-posts", {
           method: "POST",
           body: fd,
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          }
         });
         console.log(result);
       };

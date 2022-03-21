@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { usersActions } from "../../store/users-slice";
 import Button from "../Button/Button";
 
-const mainUserId = "62363c0b5d97b507588ce88e";
+const mainUserId = localStorage.getItem("mainUserId");
 const imagePrefix = "http://127.0.0.1:8080/";
 
 

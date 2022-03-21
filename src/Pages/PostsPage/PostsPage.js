@@ -18,7 +18,12 @@ export default function PostsPage() {
     const getPosts = async () => {
       try {
         const result = await fetch(
-          "http://localhost:8080/user/get-user/" + userId
+          "http://localhost:8080/user/get-user/" + userId,
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          }
         );
         if (!result) {
           throw new Error("no user found");

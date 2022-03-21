@@ -10,7 +10,11 @@ export default function HomePage() {
   useEffect(() => {
     const getPosts = async () => {
       try {
-        const posts = await fetch("http://localhost:8080/post/get-posts");
+        const posts = await fetch("http://localhost:8080/post/get-posts", {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        });
         if (!posts) {
           throw new Error("no posts");
         }
@@ -28,7 +32,7 @@ export default function HomePage() {
     <>
       <h2>Home</h2>
       <div className={styles.container}>
-        {posts.map((post) => (
+        {posts && posts.map((post) => (
           <PostItem key={post._id} post={post} />
         ))}
       </div>

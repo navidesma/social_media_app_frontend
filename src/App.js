@@ -7,6 +7,7 @@ import PostsPage from './Pages/PostsPage/PostsPage';
 import FollowPage from './Pages/FollowPage/FollowPage';
 import CreatePost from './Pages/CreatePost/CreatePost';
 import SignUp from './Pages/SignUp/SignUp';
+import Login from './Pages/Login/Login';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <Route path='follow' element={<FollowPage/>} />
       <Route path='follow/:userId/:which' element={<FollowPage/>} />
       <Route path='add-post' element={<CreatePost/>}/>
+      <Route path='login' element={<Login/>}/>
       <Route path='signup' element={<SignUp/>}/>
       <Route path="*" element={<ErrorPage />}/>
     </Routes>
