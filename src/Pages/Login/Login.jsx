@@ -1,8 +1,12 @@
 import styles from "./Login.module.css";
 
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { uiActions } from "../../store/ui-slice";
 
 export default function Login() {
+  const dispatch = useDispatch();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [formIsValid, setFormIsValid] = useState(true);
@@ -40,12 +44,8 @@ export default function Login() {
           body: JSON.stringify(body),
           headers: {"Content-Type": "Application/json"}
         });
-        const transformed = await result.json()
-        localStorage.removeItem("token");
-        localStorage.removeItem("mainUserId");
-        localStorage.setItem("token", transformed.token);
-        localStorage.setItem("mainUserId", transformed.userId);
-        console.log(transformed);
+        const tokenAndMainUserId = await result.json()
+        dispatch(uiActions.login(tokenAndMainUserId));
       };
       sendAsync();
     }

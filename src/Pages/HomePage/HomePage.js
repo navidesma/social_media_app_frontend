@@ -5,6 +5,8 @@ import { useSelector } from "react-redux";
 import PostItem from "../../Components/PostItem/PostItem";
 
 export default function HomePage() {
+  const {token} = useSelector(state => state.ui);
+
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -12,7 +14,7 @@ export default function HomePage() {
       try {
         const posts = await fetch("http://localhost:8080/post/get-posts", {
           headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
+            Authorization: "Bearer " + token,
           },
         });
         if (!posts) {

@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { usersActions } from "../../store/users-slice";
 import Button from "../Button/Button";
+import { uiActions } from "../../store/ui-slice";
 
-const mainUserId = localStorage.getItem("mainUserId");
-const imagePrefix = "http://127.0.0.1:8080/";
 
 
 export default function FollowItem(props) {
   const dispatch = useDispatch();
+  const {mainUserId, imagePrefix} = useSelector(state => state.ui);
 
   const { userId } = props;
 

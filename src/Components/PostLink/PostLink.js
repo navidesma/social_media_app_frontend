@@ -1,10 +1,10 @@
 import styles from "./PostLink.module.css";
 import { Link } from "react-router-dom";
-
-const imagePrefix = "http://127.0.0.1:8080/";
+import { useSelector } from "react-redux";
 
 
 function PostLink(props) {
+  const {imagePrefix} = useSelector(state => state.ui)
   return (
     <div className={styles.post} id={props.post.postId}>
       <Link to={`/posts/${props.post.creator}`}>

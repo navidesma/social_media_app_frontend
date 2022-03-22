@@ -6,6 +6,8 @@ import FollowItem from "../../Components/FollowItem/FollowItem";
 export default function FollowPage() {
   const { userId, which } = useParams();
 
+  const {token} = useSelector(state => state.ui);
+
   // const { users } = useSelector((state) => state);
   const [follow, setFollow] = useState(null);
 
@@ -16,7 +18,7 @@ export default function FollowPage() {
           `http://localhost:8080/user/get-${which}/` + userId,
           {
             headers: {
-              Authorization: "Bearer " + localStorage.getItem("token"),
+              Authorization: "Bearer " + token,
             },
           }
         );

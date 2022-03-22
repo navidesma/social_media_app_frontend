@@ -1,26 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// const navid = {
-//   userName: "navid_esma",
-//   info: "Navid Esma",
-//   following: ["aab"],
-//   followers: [],
-//   profilePicture: navidLogo,
-//   posts: navidPosts,
-// };
-// const pashmakolah = {
-//   userName: "pashmakolah",
-//   info: "Pashmakolah",
-//   following: [],
-//   followers: ["aaa"],
-//   profilePicture: pashmakolahLogo,
-//   posts: pashmakolahPosts,
-// };
 
-// const users = { aaa: navid, aab: pashmakolah };
-
-const usersSlice = createSlice({
-  name: "users",
+const userSlice = createSlice({
+  name: "user",
   initialState: {},
   reducers: {
     addUser() {},
@@ -44,6 +26,6 @@ const usersSlice = createSlice({
   },
 });
 
-export const usersActions = usersSlice.actions;
+export const usersActions = userSlice.actions;
 
-export default usersSlice.reducer;
+export default userSlice.reducer;

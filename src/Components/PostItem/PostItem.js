@@ -4,9 +4,10 @@ import Button from "../Button/Button";
 import styles from "./PostItem.module.css";
 import { usersActions } from "../../store/users-slice";
 
-const imagePrefix = "http://127.0.0.1:8080/";
 
 export default function PostItem(props) {
+  const {imagePrefix} = useSelector(state => state.ui);
+
   const dispatch = useDispatch();
 
   // const users = useSelector((state) => state.users);

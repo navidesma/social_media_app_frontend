@@ -6,9 +6,7 @@ import { useParams } from "react-router-dom";
 import PostItem from "../../Components/PostItem/PostItem";
 
 export default function PostsPage() {
-  // const [posts, setPosts] = useState([]);
-
-  // const { users } = useSelector((state) => state);
+  const {token} = useSelector(state => state.ui)
 
   const { userId } = useParams();
 
@@ -21,7 +19,7 @@ export default function PostsPage() {
           "http://localhost:8080/user/get-user/" + userId,
           {
             headers: {
-              Authorization: "Bearer " + localStorage.getItem("token"),
+              Authorization: "Bearer " + token,
             },
           }
         );

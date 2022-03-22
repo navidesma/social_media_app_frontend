@@ -6,13 +6,9 @@ import PostLink from "../../Components/PostLink/PostLink";
 import Button from "../../Components/Button/Button";
 import { useEffect, useState } from "react";
 
-const imagePrefix = "http://127.0.0.1:8080/";
-const mainUserId = localStorage.getItem("mainUserId");
-function UserPage() {
-  // const { users } = useSelector((state) => state);
-  // const { mainUserId } = useSelector((state) => state.ui);
 
-  // const dispatch = useDispatch();
+function UserPage() {
+  const {token, imagePrefix, mainUserId} = useSelector(state => state.ui)
 
   // To not get an error when you type url/user
   let { userId } = useParams();
@@ -29,7 +25,7 @@ function UserPage() {
           "http://localhost:8080/user/get-user/" + userId,
           {
             headers: {
-              Authorization: "Bearer " + localStorage.getItem("token")
+              Authorization: "Bearer " + token
             },
           }
         );
@@ -37,7 +33,6 @@ function UserPage() {
           throw new Error("no user found");
         }
         const toJSON = await result.json();
-        // console.log("!!!!!!!!!!!!!!1", toJSON.user);
         setUser(toJSON.user);
       } catch (err) {
         console.log(err);

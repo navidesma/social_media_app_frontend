@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import styles from "./CreatePost.module.css";
 
 export default function CreatePost() {
+  const {token} = useSelector(state => state.ui);
   const [desc, setDesc] = useState("");
 
   const [formIsValid, setFormIsValid] = useState(true);
@@ -50,7 +52,7 @@ export default function CreatePost() {
           method: "POST",
           body: fd,
           headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
+            Authorization: "Bearer " + token,
           }
         });
         console.log(result);
