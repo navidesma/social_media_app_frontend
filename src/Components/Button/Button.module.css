@@ -3,20 +3,5 @@ button {
   padding: 10px 20px;
   border-radius: 20px;
   font-weight: bold;
-}
-
-.unSubscribed {
-  color: white;
-  background-color: var(--primary-color);
-  border: none;
-}
-
-.subscribed {
-  color: black;
-  background-color: #f4f4f4;
-  border: 1px solid #333;
-}
-
-.inUserPage {
-  width: 100%;
+  background-color: var(--secondary-color);
 }

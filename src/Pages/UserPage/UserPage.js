@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { usersActions } from "../../store/users-slice";
 import styles from "./UserPage.module.css";
 import PostLink from "../../Components/PostLink/PostLink";
-import Button from "../../Components/Button/Button";
+import Button from "../../Components/SubscribeButton/SubscribeButton";
 import { useEffect, useState } from "react";
 
 

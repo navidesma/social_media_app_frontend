@@ -2,7 +2,7 @@ import styles from "./FollowItem.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { usersActions } from "../../store/users-slice";
-import Button from "../Button/Button";
+import Button from "../SubscribeButton/SubscribeButton";
 import { uiActions } from "../../store/ui-slice";
 
 

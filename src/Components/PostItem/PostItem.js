@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import Button from "../Button/Button";
+import Button from "../SubscribeButton/SubscribeButton";
 import styles from "./PostItem.module.css";
 import { usersActions } from "../../store/users-slice";
 

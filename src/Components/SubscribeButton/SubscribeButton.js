@@ -1,6 +1,6 @@
-import styles from "./Button.module.css";
+import styles from "./SubscribeButton.module.css";
 
-export default function Button(props) {
+export default function SubscribeButton(props) {
   let buttonText = "Subscribe";
   let buttonStyle = styles.unSubscribed;
   if (props.subscribed) {

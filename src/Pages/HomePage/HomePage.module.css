@@ -2,3 +2,8 @@
   margin-bottom: 20%;
   margin-top: 10%;
 }
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+}

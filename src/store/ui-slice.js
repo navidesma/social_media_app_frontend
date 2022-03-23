@@ -22,6 +22,9 @@ const uiSlice = createSlice({
       state.loggedIn = true;
     },
     logout() {},
+    showNotification(status, action) {
+      status.showNotification = action.payload;
+    }
   },
 });
 
