@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { usersActions } from "../../store/users-slice";
+import { userActions } from "../../store/user-slice";
 import styles from "./UserPage.module.css";
 import PostLink from "../../Components/PostLink/PostLink";
 import Button from "../../Components/SubscribeButton/SubscribeButton";

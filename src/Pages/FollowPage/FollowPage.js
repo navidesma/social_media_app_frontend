@@ -12,7 +12,7 @@ export default function FollowPage() {
   const [follow, setFollow] = useState(null);
 
   useEffect(() => {
-    const getPosts = async () => {
+    const getFollow = async () => {
       try {
         const result = await fetch(
           `http://localhost:8080/user/get-${which}/` + userId,
@@ -36,7 +36,7 @@ export default function FollowPage() {
         console.log(err);
       }
     };
-    getPosts();
+    getFollow();
   }, []);
 
   return (

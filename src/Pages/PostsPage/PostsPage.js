@@ -1,64 +1,57 @@
 import styles from "./PostsPage.module.css";
 
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+// import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import PostItem from "../../Components/PostItem/PostItem";
+import { useQuery } from "react-query";
+import { uiActions } from "../../store/ui-slice";
+import { useEffect, useMemo } from "react";
 
 export default function PostsPage() {
-  const {token} = useSelector(state => state.ui)
+  const { token } = useSelector((state) => state.ui);
+
+  const dispatch = useDispatch();
 
   const { userId } = useParams();
-
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const getPosts = async () => {
-      try {
-        const result = await fetch(
-          "http://localhost:8080/user/get-user/" + userId,
-          {
-            headers: {
-              Authorization: "Bearer " + token,
-            },
-          }
-        );
-        if (!result) {
-          throw new Error("no user found");
-        }
-        const toJSON = await result.json();
-        // console.log("!!!!!!!!!!!!!!1", toJSON.user);
-        setUser(toJSON.user);
-      } catch (err) {
-        console.log(err);
+  const getPosts = async() => {
+    const result = await fetch(
+      "http://localhost:8080/user/get-user/" + userId,
+      {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
       }
-    };
-    getPosts();
-  }, [userId]);
+    );
+    return await result.json();
+  }
+  const { data, status } = useQuery(`${userId}-posts`, getPosts, {
+    keepPreviousData: true,
+  });
 
-  // const user = users[`${userId}`];
-
-  // useEffect(() => {
-  //   setPosts(user.posts);
-  // }, [user]);
-  console.log(user);
+  if (status === "loading") {
+    dispatch(uiActions.showNotification(true));
+    return <div></div>;
+  }
+  if (status === "success") {
+    dispatch(uiActions.showNotification(false));
+  }
 
   return (
     <div className={styles.container}>
-      {user &&
-        user.posts.map((post) => (
-          <PostItem
-            key={post._id}
-            post={{
-              ...post,
-              creator: {
-                _id: user._id,
-                name: user.name,
-                profilePicture: user.profilePicture,
-              },
-            }}
-          />
-        ))}
+      {data.user.posts.map((post) => (
+        <PostItem
+          key={post._id}
+          post={{
+            ...post,
+            creator: {
+              _id: data.user._id,
+              name: data.user.name,
+              profilePicture: data.user.profilePicture,
+            },
+          }}
+        />
+      ))}
     </div>
   );
 }

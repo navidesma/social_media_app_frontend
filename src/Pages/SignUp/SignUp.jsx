@@ -49,7 +49,7 @@ export default function SignUp() {
   };
   const finishForm = (event) => {
     event.preventDefault();
-    setFormIsValid(true);
+    setFormIsValid(false);
     setEmailIsValid(true)
     setNameIsValid(true)
     setPasswordIsValid(true)
@@ -67,9 +67,10 @@ export default function SignUp() {
     if (secondPassword !== password) {
       setSecondPasswordIsValid(false)
     }
-    if (!(emailIsValid && nameIsValid && passwordIsValid && passwordIsValid && secondPasswordIsValid)) {
-      setFormIsValid(false);
+    if (emailIsValid && nameIsValid && passwordIsValid && passwordIsValid && secondPasswordIsValid) {
+      setFormIsValid(() => true);
     }
+    console.log(formIsValid);
     if (formIsValid) {
       const fd = new FormData();
       fd.append("image", selectedFile);

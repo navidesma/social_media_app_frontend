@@ -1,7 +1,7 @@
 import styles from "./FollowItem.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { usersActions } from "../../store/users-slice";
+import { userActions } from "../../store/user-slice";
 import Button from "../SubscribeButton/SubscribeButton";
 import { uiActions } from "../../store/ui-slice";
 
@@ -26,14 +26,14 @@ export default function FollowItem(props) {
   //   subscribed = true;
   // }
 
-  const subHandler = () => {
-    subscribed = !subscribed;
-    if (subscribed) {
-      dispatch(usersActions.addToFollowing(userId));
-    } else {
-      dispatch(usersActions.removeFromFollowing(userId));
-    }
-  };
+  // const subHandler = () => {
+  //   subscribed = !subscribed;
+  //   if (subscribed) {
+  //     dispatch(usersActions.addToFollowing(userId));
+  //   } else {
+  //     dispatch(usersActions.removeFromFollowing(userId));
+  //   }
+  // };
 
   return (
     <div className={styles.container}>
@@ -43,7 +43,8 @@ export default function FollowItem(props) {
           <h3>{props.user.name}</h3>
         </Link>
       </div>
-      {!(userId === mainUserId) && <Button subscribed={subscribed} subHandler={subHandler} />}
+      {/* {!(userId === mainUserId) && <Button subscribed={subscribed} subHandler={subHandler} />} */}
+      {!(userId === mainUserId) && <Button subscribed={subscribed} />}
       {/* from here */}
     </div>
   );

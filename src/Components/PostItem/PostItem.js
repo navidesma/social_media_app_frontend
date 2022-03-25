@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Button from "../SubscribeButton/SubscribeButton";
 import styles from "./PostItem.module.css";
-import { usersActions } from "../../store/users-slice";
+import { usersActions } from "../../store/user-slice";
 
 
 export default function PostItem(props) {
@@ -12,8 +12,6 @@ export default function PostItem(props) {
 
   // const users = useSelector((state) => state.users);
   const userId = props.post.creator._id;
-  // const userName = users[`${userId}`].userName;
-  // const logo = users[`${userId}`].profilePicture;
 
   const { mainUserId } = useSelector((state) => state.ui);
 

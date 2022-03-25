@@ -5,7 +5,7 @@ import { uiActions } from "../../store/ui-slice";
 import PostItem from "../../Components/PostItem/PostItem";
 import { useQuery } from "react-query";
 import Button from "../../Components/Button/Button";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 export default function HomePage() {
   const { token } = useSelector((state) => state.ui);
@@ -14,7 +14,7 @@ export default function HomePage() {
 
   const [page, setPage] = useState(1);
 
-  const getPosts = async ({ queryKey }) => {
+  const getPosts = async ({queryKey}) => {
     const result = await fetch("http://localhost:8080/post/get-posts", {
       headers: {
         Authorization: "Bearer " + token,
@@ -22,7 +22,7 @@ export default function HomePage() {
       },
     });
     return await result.json();
-  };
+  }
   const { data, status, isPreviousData } = useQuery(
     ["home-posts", page],
     getPosts,
