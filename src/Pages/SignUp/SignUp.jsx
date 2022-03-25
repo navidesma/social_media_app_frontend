@@ -1,6 +1,9 @@
 import styles from "./SignUp.module.css";
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 export default function SignUp() {
+  const {apiUrl} = useSelector(state => state.ui);
+
   const [selectedFile, setSelectedFile] = useState();
   const [preview, setPreview] = useState();
 
@@ -78,12 +81,16 @@ export default function SignUp() {
       fd.append("name", name.trim());
       fd.append("password", password.trim());
       const sendAsync = async () => {
-        const result = await fetch("http://127.0.0.1:8080/auth/signup", {
+        const response = await fetch(`${apiUrl}auth/signup`, {
           method: "PUT",
           body: fd,
         });
-        const transform = await result.json()
-        console.log(transform);
+        if (!response.ok) {
+          // show error
+          return;
+        }
+        const toJSON = await response.json()
+        console.log(toJSON);
       };
       sendAsync();
     }

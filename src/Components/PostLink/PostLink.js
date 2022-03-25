@@ -4,11 +4,11 @@ import { useSelector } from "react-redux";
 
 
 function PostLink(props) {
-  const {imagePrefix} = useSelector(state => state.ui)
+  const {apiUrl} = useSelector(state => state.ui)
   return (
     <div className={styles.post} id={props.post.postId}>
       <Link to={`/posts/${props.post.creator}`}>
-        <img src={imagePrefix + props.post.imageUrl} alt="" />
+        <img src={apiUrl + props.post.imageUrl} alt="" />
       </Link>
     </div>
   );

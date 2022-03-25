@@ -11,34 +11,15 @@ import Login from "./Pages/Login/Login";
 import Notification from "./UI/Notification/Notification";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { userActions } from "./store/user-slice";
+import { initializeFollowing } from "./store/user-actions";
 
 function App() {
-  const { showNotification, mainUserId, token } = useSelector((state) => state.ui);
+  const { showNotification } = useSelector((state) => state.ui);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const getFollowing = async () => {
-      try {
-        const result = await fetch(
-          `http://localhost:8080/user/get-following-no-detail/` + mainUserId,
-          {
-            headers: {
-              Authorization: "Bearer " + token,
-            },
-          }
-        );
-        if (!result) {
-          throw new Error("no user found");
-        }
-        const toJSON = await result.json();
-        dispatch(userActions.initializeFollowing(toJSON.user.following))
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getFollowing();
-  }, [mainUserId, token, dispatch]);
+    dispatch(initializeFollowing())
+  }, [dispatch]);
 
   return (
     <>

@@ -5,7 +5,7 @@ const initialState = {
   mainUserId: localStorage.getItem("mainUserId") || null,
   loggedIn: localStorage.getItem("token")? true : false,
   notification: false,
-  imagePrefix: "http://127.0.0.1:8080/"
+  apiUrl: "http://127.0.0.1:8080/"
 };
 
 const uiSlice = createSlice({

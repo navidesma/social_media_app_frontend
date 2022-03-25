@@ -1,10 +1,11 @@
 import styles from "./Login.module.css";
 
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { uiActions } from "../../store/ui-slice";
 
 export default function Login() {
+  const {apiUrl} = useSelector(state => state.ui);
   const dispatch = useDispatch();
 
   const [email, setEmail] = useState("");
@@ -39,11 +40,15 @@ export default function Login() {
       const body = {email: email.trim(), password: password.trim()}
 
       const sendAsync = async () => {
-        const result = await fetch("http://127.0.0.1:8080/auth/login", {
+        const result = await fetch(`${apiUrl}auth/login`, {
           method: "POST",
           body: JSON.stringify(body),
           headers: {"Content-Type": "Application/json"}
         });
+        if (!result.ok) {
+          // show error
+          return;
+        }
         const tokenAndMainUserId = await result.json()
         dispatch(uiActions.login(tokenAndMainUserId));
       };

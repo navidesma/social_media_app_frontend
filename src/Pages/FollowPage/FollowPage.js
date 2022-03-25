@@ -22,7 +22,7 @@ export default function FollowPage() {
             },
           }
         );
-        if (!result) {
+        if (!result.ok) {
           throw new Error("no user found");
         }
         const toJSON = await result.json();

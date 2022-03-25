@@ -1,38 +1,42 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector, connect } from "react-redux";
 import { Link } from "react-router-dom";
 import Button from "../SubscribeButton/SubscribeButton";
 import styles from "./PostItem.module.css";
-import { usersActions } from "../../store/user-slice";
-
+import { addToFollowing, removeFromFollowing } from "../../store/user-actions";
+import { useEffect } from "react";
 
 export default function PostItem(props) {
-  const {imagePrefix} = useSelector(state => state.ui);
+  const { apiUrl } = useSelector((state) => state.ui);
 
   const dispatch = useDispatch();
 
-  // const users = useSelector((state) => state.users);
+  const { following } = useSelector((state) => state.user);
+
   const userId = props.post.creator._id;
 
   const { mainUserId } = useSelector((state) => state.ui);
 
+
   let subscribed = false;
-  // if (users["aaa"].following.includes(userId)) {
-  //   subscribed = true;
-  // }
+  if (following.includes(userId)) {
+    subscribed = true;
+  }
 
   const subHandler = () => {
-    // subscribed = !subscribed;
-    // if (subscribed) {
-    //   dispatch(usersActions.addToFollowing(userId));
-    // } else {
-    //   dispatch(usersActions.removeFromFollowing(userId));
-    // }
+    if (!subscribed) {
+      dispatch(addToFollowing(userId));
+    } else {
+      dispatch(removeFromFollowing(userId));
+    }
   };
   return (
     <div className={styles.itemContainer} id={props.post.postId}>
       <div className={styles.posterInfo}>
         <Link to={`/user/${userId}`}>
-          <img src={ imagePrefix + props.post.creator.profilePicture} alt="poster logo" />
+          <img
+            src={apiUrl + props.post.creator.profilePicture}
+            alt="poster logo"
+          />
           <h3>{props.post.creator.name}</h3>
         </Link>
         {!(mainUserId === userId) && (
@@ -40,7 +44,7 @@ export default function PostItem(props) {
         )}
       </div>
       <div className={styles.imgSection}>
-        <img src={ imagePrefix + props.post.imageUrl} alt="post" />
+        <img src={apiUrl + props.post.imageUrl} alt="post" />
       </div>
       <div className={styles.contentSection}>
         <p>{props.post.description}</p>

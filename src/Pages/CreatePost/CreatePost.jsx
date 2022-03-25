@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import styles from "./CreatePost.module.css";
 
 export default function CreatePost() {
-  const {token} = useSelector(state => state.ui);
+  const { token, apiUrl } = useSelector((state) => state.ui);
   const [desc, setDesc] = useState("");
 
   const [formIsValid, setFormIsValid] = useState(true);
@@ -48,16 +48,23 @@ export default function CreatePost() {
       fd.append("description", desc.trim());
       fd.append("image", selectedFile);
       const sendAsync = async () => {
-        const result = await fetch("http://127.0.0.1:8080/post/create-posts", {
+        const result = await fetch(`${apiUrl}post/create-posts`, {
           method: "POST",
           body: fd,
           headers: {
             Authorization: "Bearer " + token,
-          }
+          },
         });
+        if (!result.ok) {
+          // redirect the user
+        }
         console.log(result);
       };
-      sendAsync();
+      try {
+        sendAsync();
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
   return (
@@ -78,7 +85,12 @@ export default function CreatePost() {
           <div>
             <div className={styles.inputSection}>
               <label htmlFor="desc">Add Post Description:</label>
-              <textarea id="desc" rows="4" cols="50" onChange={descChangeHandler} />
+              <textarea
+                id="desc"
+                rows="4"
+                cols="50"
+                onChange={descChangeHandler}
+              />
             </div>
           </div>
           <button type="submit">Create Post</button>

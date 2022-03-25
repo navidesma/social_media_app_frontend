@@ -12,10 +12,10 @@ const userSlice = createSlice({
       state.following = action.payload;
     },
     addToFollowing(state, action) {
-      
+      state.following.push(action.payload);
     },
     removeFromFollowing(state, action) {
-      
+      state.following = state.following.filter(userId => userId !== action.payload);
     },
   },
 });

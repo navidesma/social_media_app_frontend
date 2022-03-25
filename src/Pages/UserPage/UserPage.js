@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { userActions } from "../../store/user-slice";
+import { addToFollowing, removeFromFollowing } from "../../store/user-actions";
 import styles from "./UserPage.module.css";
 import PostLink from "../../Components/PostLink/PostLink";
 import Button from "../../Components/SubscribeButton/SubscribeButton";
@@ -8,7 +8,10 @@ import { useEffect, useState } from "react";
 
 
 function UserPage() {
-  const {token, imagePrefix, mainUserId} = useSelector(state => state.ui)
+  const {token, apiUrl, mainUserId} = useSelector(state => state.ui);
+  const {following} = useSelector(state => state.user);
+
+  const dispatch = useDispatch();
 
   // To not get an error when you type url/user
   let { userId } = useParams();
@@ -29,7 +32,7 @@ function UserPage() {
             },
           }
         );
-        if (!result) {
+        if (!result.ok) {
           throw new Error("no user found");
         }
         const toJSON = await result.json();
@@ -44,17 +47,16 @@ function UserPage() {
   console.log(user);
 
   let subscribed = false;
-  // if (user.following.includes(userId)) {
-  //   subscribed = true;
-  // }
-  // const subHandler = () => {
-  //   subscribed = !subscribed;
-  //   if (subscribed) {
-  //     dispatch(usersActions.addToFollowing(userId));
-  //   } else {
-  //     dispatch(usersActions.removeFromFollowing(userId));
-  //   }
-  // };
+  if (following.includes(userId)) {
+    subscribed = true;
+  }
+  const subHandler = () => {
+    if (!subscribed) {
+      dispatch(addToFollowing(userId));
+    } else {
+      dispatch(removeFromFollowing(userId));
+    }
+  };
   return (
     <>
       {user && <div className={styles.main}>
@@ -65,7 +67,7 @@ function UserPage() {
           </div>
           <div className={styles.middle}>
             <div className={styles.logo}>
-              <img src={imagePrefix + user.profilePicture} alt="" />
+              <img src={apiUrl + user.profilePicture} alt="" />
             </div>
             <div className={styles.followSection}>
               <div>
@@ -94,7 +96,7 @@ function UserPage() {
               </div>
             </div>
           </div>
-          {/* {!(userId === mainUserId) && (
+          {!(userId === mainUserId) && (
         <div className={styles.subscribeButtonContainer}>
           <Button
             isInUserPage={true}
@@ -102,7 +104,7 @@ function UserPage() {
             subHandler={subHandler}
           />
         </div>
-      )} */}
+      )}
         </div>
         <div className={styles.postsContainer}>
           {user.posts.map((post) => (

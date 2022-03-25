@@ -4,7 +4,7 @@ import uiSlice from "./ui-slice";
 import userSlice from "./user-slice";
 
 const store = configureStore({
-  reducer: { users: userSlice, ui: uiSlice },
+  reducer: { user: userSlice, ui: uiSlice },
 });
 
 export default store;
