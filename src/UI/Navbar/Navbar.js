@@ -2,6 +2,8 @@ import styles from "./Navbar.module.css";
 import { NavLink, useLocation } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
 import PersonIcon from "@mui/icons-material/Person";
+import AddIcon from '@mui/icons-material/Add';
+import SearchIcon from '@mui/icons-material/Search';
 import { useSelector } from "react-redux";
 
 function Navbar() {
@@ -17,6 +19,18 @@ function Navbar() {
         className={(navData) => (navData.isActive ? styles.activeLink : "")}
       >
         <HomeIcon sx={{ color: "white" }} />
+      </NavLink>
+      <NavLink
+        to="/search-users"
+        className={(navData) => (navData.isActive ? styles.activeLink : "")}
+      >
+        <SearchIcon sx={{ color: "white" }} />
+      </NavLink>
+      <NavLink
+        to="/add-post"
+        className={(navData) => (navData.isActive ? styles.activeLink : "")}
+      >
+        <AddIcon sx={{ color: "white" }} />
       </NavLink>
       <NavLink
         to={`/user`}

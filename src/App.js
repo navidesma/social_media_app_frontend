@@ -9,6 +9,7 @@ import CreatePost from "./Pages/CreatePost/CreatePost";
 import SignUp from "./Pages/SignUp/SignUp";
 import Login from "./Pages/Login/Login";
 import Notification from "./UI/Notification/Notification";
+import SearchPage from "./Pages/SearchPage/SearchPage";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { initializeFollowing } from "./store/user-actions";
@@ -35,6 +36,7 @@ function App() {
         <Route path="add-post" element={<CreatePost />} />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<SignUp />} />
+        <Route path="search-users" element={<SearchPage />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
       <Navbar />

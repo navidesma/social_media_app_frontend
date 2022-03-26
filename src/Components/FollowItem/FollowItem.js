@@ -25,7 +25,6 @@ export default function FollowItem(props) {
       dispatch(removeFromFollowing(_id));
     }
   };
-  // console.log();
 
   return (
     <div className={styles.container}>

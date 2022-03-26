@@ -26,7 +26,6 @@ export default function FollowPage() {
           throw new Error("no user found");
         }
         const toJSON = await result.json();
-        console.log("!!!!!!!!!!!!!!1", toJSON.user.followers);
         if (which === "followers") {
           setFollow(toJSON.user.followers);
         } else if (which === "following") {

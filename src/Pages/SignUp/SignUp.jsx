@@ -73,7 +73,6 @@ export default function SignUp() {
     if (emailIsValid && nameIsValid && passwordIsValid && passwordIsValid && secondPasswordIsValid) {
       setFormIsValid(() => true);
     }
-    console.log(formIsValid);
     if (formIsValid) {
       const fd = new FormData();
       fd.append("image", selectedFile);

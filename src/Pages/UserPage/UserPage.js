@@ -44,7 +44,6 @@ function UserPage() {
     getPosts();
   }, []);
 
-  console.log(user);
 
   let subscribed = false;
   if (following.includes(userId)) {
