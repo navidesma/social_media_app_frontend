@@ -21,7 +21,13 @@ const uiSlice = createSlice({
       state.mainUserId = action.payload.userId;
       state.loggedIn = true;
     },
-    logout() {},
+    logout(state) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("mainUserId");
+      state.token = null;
+      state.mainUserId = null;
+      state.loggedIn = false;
+    },
     showNotification(status, action) {
       status.showNotification = action.payload;
     }

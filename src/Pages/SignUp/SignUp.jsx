@@ -1,7 +1,9 @@
 import styles from "./SignUp.module.css";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 export default function SignUp() {
+  const navigate = useNavigate();
   const {apiUrl} = useSelector(state => state.ui);
 
   const [selectedFile, setSelectedFile] = useState();
@@ -90,6 +92,7 @@ export default function SignUp() {
         }
         const toJSON = await response.json()
         console.log(toJSON);
+        navigate("/login");
       };
       sendAsync();
     }
@@ -144,6 +147,12 @@ export default function SignUp() {
           </div>
           <button type="submit">Create User</button>
         </form>
+      </div>
+      <div className={styles.bottomContainer}>
+      <h4>Already A User ?</h4>
+      <button type="button" onClick={() => {
+        navigate("/login")
+      }}>Login</button>
       </div>
     </div>
   );

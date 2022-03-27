@@ -3,8 +3,10 @@ import styles from "./Login.module.css";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { uiActions } from "../../store/ui-slice";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+  const navigate = useNavigate()
   const {apiUrl} = useSelector(state => state.ui);
   const dispatch = useDispatch();
 
@@ -51,6 +53,7 @@ export default function Login() {
         }
         const tokenAndMainUserId = await result.json()
         dispatch(uiActions.login(tokenAndMainUserId));
+        navigate("/");
       };
       sendAsync();
     }
@@ -61,13 +64,13 @@ export default function Login() {
       <div className={styles.formContainer}>
         <form onSubmit={finishForm}>
           <div className={styles.inputSection}>
-            <label htmlFor="email">Enter a valid Email</label>
+            <label htmlFor="email">Enter Your Account's Email</label>
             <input type="email" id="email" onChange={emailChangeHandler} />
             {!emailIsValid && <p>Email should be provided</p>}
           </div>
 
           <div className={styles.inputSection}>
-            <label htmlFor="password">Enter a password</label>
+            <label htmlFor="password">Enter Your password</label>
             <input
               type="password"
               id="password"
@@ -79,8 +82,14 @@ export default function Login() {
               </p>
             )}
           </div>
-          <button type="submit">Create User</button>
+          <button type="submit">Login</button>
         </form>
+      </div>
+      <div className={styles.bottomContainer}>
+      <h4>New User ?</h4>
+      <button type="button" onClick={() => {
+        navigate("/signup")
+      }}>Create A New User</button> 
       </div>
     </div>
   );

@@ -18,8 +18,6 @@ export default function SearchPage() {
   const formSubmitHandler = (event) => {
     event.preventDefault();
     if (nameInputValue) {
-      console.log(nameInputValue);
-      // const name = nameInput.trim();
       const sendToBack = async () => {
         const response = await fetch(apiUrl + "user/search-users", {
           method: "POST",

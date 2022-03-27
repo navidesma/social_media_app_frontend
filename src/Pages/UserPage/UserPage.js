@@ -42,7 +42,7 @@ function UserPage() {
       }
     };
     getPosts();
-  }, []);
+  }, [userId]);
 
 
   let subscribed = false;
@@ -62,7 +62,7 @@ function UserPage() {
         <div className={styles.topSectionContainer}>
           <div className={styles.upper}>
             <h2>{user.name}</h2>
-            {userId === mainUserId && <p>|||</p>}
+            {userId === mainUserId && <p><Link to="/user-settings">|||</Link></p>}
           </div>
           <div className={styles.middle}>
             <div className={styles.logo}>
