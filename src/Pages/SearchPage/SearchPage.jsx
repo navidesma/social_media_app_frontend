@@ -44,7 +44,7 @@ export default function SearchPage() {
     <>
       <div className={styles.topSection}>
         <form onSubmit={formSubmitHandler}>
-          <div className={styles.formContainer}></div>
+          <div className={styles.formContainer}>
           <div className={styles.inputSection}>
             <input
               type="text"
@@ -52,6 +52,7 @@ export default function SearchPage() {
               onChange={nameInputChangeHandler}
             />
             <Button type="submit">Find</Button>
+          </div>
           </div>
         </form>
       </div>

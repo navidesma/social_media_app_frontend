@@ -16,7 +16,13 @@ import { useEffect } from "react";
 import { initializeFollowing } from "./store/user-actions";
 
 function App() {
-  const { showNotification, loggedIn } = useSelector((state) => state.ui);
+  const { notification, loggedIn } = useSelector((state) => state.ui);
+  // const {
+  //   show: showNotification,
+  //   mode: notificationMode,
+  //   header: notificationHeader,
+  //   message: notificationMessage,
+  // } = notification;
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -25,7 +31,7 @@ function App() {
 
   return (
     <>
-      {showNotification && <Notification status="loading..." />}
+      {notification.show && <Notification props={{...notification}} />}
       <Routes>
         {!loggedIn && <Route path="/" element={<Login />} />}
         {loggedIn && (

@@ -5,7 +5,9 @@ import { uiActions } from "../../store/ui-slice";
 import PostItem from "../../Components/PostItem/PostItem";
 import { useQuery } from "react-query";
 import Button from "../../Components/Button/Button";
-import { useMemo, useState } from "react";
+import { useState } from "react";
+
+const buttonAdditionalStyle = {margin: "0 5px"}
 
 export default function HomePage() {
   const { token } = useSelector((state) => state.ui);
@@ -32,11 +34,14 @@ export default function HomePage() {
   );
 
   if (status === "loading") {
-    dispatch(uiActions.showNotification(true));
-    return <div></div>;
+    dispatch(uiActions.toggleNotification({mode: "loading", header: "Fetching Posts", message: "Please Wait"}));
+    return <></>;
   }
   if (status === "success") {
-    dispatch(uiActions.showNotification(false));
+    dispatch(uiActions.toggleNotification());
+  }
+  if (status === "error") {
+    dispatch(uiActions.toggleNotification({mode: "error", header: "Couldn't fetch posts", message: "Please try again"}));
   }
   return (
     <>
@@ -49,12 +54,14 @@ export default function HomePage() {
           <Button
             onClick={() => setPage((old) => old - 1)}
             disabled={page === 1}
+            style={buttonAdditionalStyle}
           >
             Previous
           </Button>
           <Button
             onClick={() => setPage((old) => old + 1)}
             disabled={isPreviousData || page === data.totalPages}
+            style={buttonAdditionalStyle}
           >
             Next
           </Button>

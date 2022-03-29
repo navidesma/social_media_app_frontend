@@ -1,7 +1,9 @@
-button {
-  margin: 5px;
+.button {
+  width: 60%;
+  margin: 5px auto;
   padding: 10px 20px;
   border-radius: 20px;
   font-weight: bold;
   background-color: var(--secondary-color);
+  /* display: inline-block; */
 }

@@ -3,21 +3,29 @@ import ReactDOM from "react-dom";
 
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
+import Button from "../../Components/Button/Button";
+import { useDispatch } from "react-redux";
+import { uiActions } from "../../store/ui-slice";
+
 
 const Backdrop = (props) => {
   return <div className={styles.backdrop} />;
 };
 
 const NotificationOverlay = (props) => {
+  const {mode, header, message} = props.props;
+  const dispatch = useDispatch();
   return (
     <div className={styles.notification}>
       <div className={styles.content}>
         <header className={styles.header}>
-          <h2>{props.status}</h2>
+          <h2>{header}</h2>
         </header>
-        <Box sx={{ display: "flex" }}>
+        <p>{message}</p>
+        {mode === "loading" && <Box sx={{ display: "flex" }}>
           <CircularProgress />
-        </Box>
+        </Box>}
+        {mode === "error" && <Button className={styles.button} onClick={() => {dispatch(uiActions.toggleNotification())}}>OK</Button>}
       </div>
     </div>
   );
@@ -31,7 +39,7 @@ export default function Notification(props) {
         document.getElementById("backdrop-root")
       )}
       {ReactDOM.createPortal(
-        <NotificationOverlay status={props.status} />,
+        <NotificationOverlay props={{...(props.props)}} />,
         document.getElementById("overlay-root")
       )}
     </>

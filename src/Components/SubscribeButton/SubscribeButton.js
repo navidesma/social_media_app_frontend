@@ -9,11 +9,11 @@ export default function SubscribeButton(props) {
   }
 
   if (props.isInUserPage) {
-    buttonStyle = `${buttonStyle} ${styles.inUserPage}`;
+    buttonStyle = `${buttonStyle} ${styles.button} ${styles.inUserPage}`;
   }
 
   return (
-    <button className={buttonStyle} onClick={props.subHandler}>
+    <button className={`${buttonStyle} ${styles.button}`} onClick={props.subHandler}>
       {buttonText}
     </button>
   );

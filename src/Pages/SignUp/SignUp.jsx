@@ -2,6 +2,8 @@ import styles from "./SignUp.module.css";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Button from "../../Components/Button/Button";
+
 export default function SignUp() {
   const navigate = useNavigate();
   const {apiUrl} = useSelector(state => state.ui);
@@ -145,14 +147,14 @@ export default function SignUp() {
               <img src={preview} alt="" className={styles.imagePreview} />
             )}
           </div>
-          <button type="submit">Create User</button>
+          <Button type="submit">Create User</Button>
         </form>
       </div>
       <div className={styles.bottomContainer}>
       <h4>Already A User ?</h4>
-      <button type="button" onClick={() => {
+      <Button type="button" onClick={() => {
         navigate("/login")
-      }}>Login</button>
+      }}>Login</Button>
       </div>
     </div>
   );

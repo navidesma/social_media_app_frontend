@@ -6,7 +6,6 @@ import { useParams } from "react-router-dom";
 import PostItem from "../../Components/PostItem/PostItem";
 import { useQuery } from "react-query";
 import { uiActions } from "../../store/ui-slice";
-import { useEffect, useMemo } from "react";
 
 export default function PostsPage() {
   const { token } = useSelector((state) => state.ui);
@@ -30,11 +29,14 @@ export default function PostsPage() {
   });
 
   if (status === "loading") {
-    dispatch(uiActions.showNotification(true));
+    dispatch(uiActions.toggleNotification({show: true, mode: "loading", header: "Fetching User Posts", message: "Please wait"}));
     return <div></div>;
   }
   if (status === "success") {
-    dispatch(uiActions.showNotification(false));
+    dispatch(uiActions.toggleNotification());
+  }
+  if (status === "error") {
+    dispatch(uiActions.toggleNotification({mode: "error", header: "Couldn't fetch user data", message: "Please try again"}));
   }
 
   return (

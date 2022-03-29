@@ -1,8 +1,15 @@
+import styles from "./CreatePost.module.css";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import styles from "./CreatePost.module.css";
+import { uiActions } from "../../store/ui-slice";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import Button from "../../Components/Button/Button";
 
 export default function CreatePost() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const { token, apiUrl } = useSelector((state) => state.ui);
   const [desc, setDesc] = useState("");
 
@@ -48,7 +55,8 @@ export default function CreatePost() {
       fd.append("description", desc.trim());
       fd.append("image", selectedFile);
       const sendAsync = async () => {
-        const result = await fetch(`${apiUrl}post/create-posts`, {
+        dispatch(uiActions.toggleNotification({mode: "loading", header: "Uploading the post", message: "Please Wait"}));
+        const result = await fetch(`${apiUrl}pos/create-posts`, {
           method: "POST",
           body: fd,
           headers: {
@@ -56,9 +64,11 @@ export default function CreatePost() {
           },
         });
         if (!result.ok) {
-          // redirect the user
+          dispatch(uiActions.toggleNotification({mode: "error", header: "Couldn't upload the post", message: "Please try again"}));
+          return;
         }
-        console.log(result);
+        dispatch(uiActions.toggleNotification());
+        navigate("/");
       };
       try {
         sendAsync();
@@ -93,7 +103,7 @@ export default function CreatePost() {
               />
             </div>
           </div>
-          <button type="submit">Create Post</button>
+          <Button type="submit">Create Post</Button>
         </form>
       </div>
     </div>

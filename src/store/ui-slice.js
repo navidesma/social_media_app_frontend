@@ -4,7 +4,7 @@ const initialState = {
   token: localStorage.getItem("token") || null,
   mainUserId: localStorage.getItem("mainUserId") || null,
   loggedIn: localStorage.getItem("token")? true : false,
-  notification: false,
+  notification: {show: false, mode: null, header: null, message: null},
   apiUrl: "http://127.0.0.1:8080/"
 };
 
@@ -28,8 +28,15 @@ const uiSlice = createSlice({
       state.mainUserId = null;
       state.loggedIn = false;
     },
-    showNotification(status, action) {
-      status.showNotification = action.payload;
+    toggleNotification(status, action) {
+      if (action.payload) {
+        status.notification.mode = action.payload.mode;
+        status.notification.header = action.payload.header;
+        status.notification.message = action.payload.message;
+        status.notification.show = true;
+      } else {
+        status.notification.show = false;
+      }
     }
   },
 });

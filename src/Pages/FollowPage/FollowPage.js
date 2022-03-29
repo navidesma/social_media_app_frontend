@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { uiActions } from "../../store/ui-slice";
 import { useParams } from "react-router-dom";
 import FollowItem from "../../Components/FollowItem/FollowItem";
 
 export default function FollowPage() {
+  const dispatch = useDispatch();
   const { userId, which } = useParams();
 
   const {token} = useSelector(state => state.ui);
@@ -13,6 +15,7 @@ export default function FollowPage() {
 
   useEffect(() => {
     const getFollow = async () => {
+      dispatch(uiActions.toggleNotification({mode: "loading", header: "Getting Followers/Following", message: "Please Wait"}));
       try {
         const result = await fetch(
           `http://localhost:8080/user/get-${which}/` + userId,
@@ -31,8 +34,10 @@ export default function FollowPage() {
         } else if (which === "following") {
           setFollow(toJSON.user.following);
         }
+        dispatch(uiActions.toggleNotification());
       } catch (err) {
         console.log(err);
+        dispatch(uiActions.toggleNotification({mode: "error", header: "Something went wrong", message: "Please try again"}));
       }
     };
     getFollow();

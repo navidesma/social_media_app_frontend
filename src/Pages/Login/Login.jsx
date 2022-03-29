@@ -4,10 +4,12 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { uiActions } from "../../store/ui-slice";
 import { useNavigate } from "react-router-dom";
+import Button from "../../Components/Button/Button";
+
 
 export default function Login() {
-  const navigate = useNavigate()
-  const {apiUrl} = useSelector(state => state.ui);
+  const navigate = useNavigate();
+  const { apiUrl } = useSelector((state) => state.ui);
   const dispatch = useDispatch();
 
   const [email, setEmail] = useState("");
@@ -39,20 +41,22 @@ export default function Login() {
       setFormIsValid(false);
     }
     if (formIsValid) {
-      const body = {email: email.trim(), password: password.trim()}
+      const body = { email: email.trim(), password: password.trim() };
 
       const sendAsync = async () => {
+        dispatch(uiActions.toggleNotification({mode: "loading", header: "Logging In", message: "Please Wait"}));
         const result = await fetch(`${apiUrl}auth/login`, {
           method: "POST",
           body: JSON.stringify(body),
-          headers: {"Content-Type": "Application/json"}
+          headers: { "Content-Type": "Application/json" },
         });
         if (!result.ok) {
-          // show error
+          dispatch(uiActions.toggleNotification({mode: "error", header: "Couldn't Log In", message: "Please try again"}));
           return;
         }
-        const tokenAndMainUserId = await result.json()
+        const tokenAndMainUserId = await result.json();
         dispatch(uiActions.login(tokenAndMainUserId));
+        dispatch(uiActions.toggleNotification());
         navigate("/");
       };
       sendAsync();
@@ -82,14 +86,19 @@ export default function Login() {
               </p>
             )}
           </div>
-          <button type="submit">Login</button>
+          <Button type="submit">Login</Button>
         </form>
       </div>
       <div className={styles.bottomContainer}>
-      <h4>New User ?</h4>
-      <button type="button" onClick={() => {
-        navigate("/signup")
-      }}>Create A New User</button> 
+        <h4>New User ?</h4>
+        <Button
+          type="button"
+          onClick={() => {
+            navigate("/signup");
+          }}
+        >
+          Create A New User
+        </Button>
       </div>
     </div>
   );

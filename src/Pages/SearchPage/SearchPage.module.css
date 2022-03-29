@@ -1,5 +1,10 @@
 .formContainer {
   display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.formContainer > * {
+  width: 100%;
 }
 
 .inputSection {

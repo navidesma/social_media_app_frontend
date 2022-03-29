@@ -4,12 +4,12 @@ import { addToFollowing, removeFromFollowing } from "../../store/user-actions";
 import styles from "./UserPage.module.css";
 import PostLink from "../../Components/PostLink/PostLink";
 import Button from "../../Components/SubscribeButton/SubscribeButton";
-import { useEffect, useState } from "react";
-
+import { useQuery } from "react-query";
+import { uiActions } from "../../store/ui-slice";
 
 function UserPage() {
-  const {token, apiUrl, mainUserId} = useSelector(state => state.ui);
-  const {following} = useSelector(state => state.user);
+  const { token, apiUrl, mainUserId } = useSelector((state) => state.ui);
+  const { following } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
 
@@ -19,31 +19,47 @@ function UserPage() {
     userId = mainUserId;
   }
 
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const getPosts = async () => {
-      try {
-        const result = await fetch(
-          "http://localhost:8080/user/get-user/" + userId,
-          {
-            headers: {
-              Authorization: "Bearer " + token
-            },
-          }
-        );
-        if (!result.ok) {
-          throw new Error("no user found");
+  const getUser = async () => {
+    try {
+      const result = await fetch(
+        "http://localhost:8080/user/get-user/" + userId,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
         }
-        const toJSON = await result.json();
-        setUser(toJSON.user);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getPosts();
-  }, [userId]);
+      );
+      return await result.json();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const { data, status } = useQuery(`${userId}-data`, getUser, {
+    keepPreviousData: true,
+  });
 
+  if (status === "loading") {
+    dispatch(
+      uiActions.toggleNotification({
+        mode: "loading",
+        header: "Fetching User Data",
+        message: "Please Wait",
+      })
+    );
+    return <></>;
+  }
+  if (status === "success") {
+    dispatch(uiActions.toggleNotification());
+  }
+  if (status === "error") {
+    dispatch(
+      uiActions.toggleNotification({
+        mode: "error",
+        header: "Couldn't fetch user data",
+        message: "Please try again",
+      })
+    );
+  }
 
   let subscribed = false;
   if (following.includes(userId)) {
@@ -58,59 +74,65 @@ function UserPage() {
   };
   return (
     <>
-      {user && <div className={styles.main}>
-        <div className={styles.topSectionContainer}>
-          <div className={styles.upper}>
-            <h2>{user.name}</h2>
-            {userId === mainUserId && <p><Link to="/user-settings">|||</Link></p>}
-          </div>
-          <div className={styles.middle}>
-            <div className={styles.logo}>
-              <img src={apiUrl + user.profilePicture} alt="" />
+      {data.user && (
+        <div className={styles.main}>
+          <div className={styles.topSectionContainer}>
+            <div className={styles.upper}>
+              <h2>{data.user.name}</h2>
+              {userId === mainUserId && (
+                <p>
+                  <Link to="/user-settings">|||</Link>
+                </p>
+              )}
             </div>
-            <div className={styles.followSection}>
-              <div>
-                <p>{user.posts.length}</p>
-                <p>Posts</p>
+            <div className={styles.middle}>
+              <div className={styles.logo}>
+                <img src={apiUrl + data.user.profilePicture} alt="" />
               </div>
-              <div>
-                <p>
-                  <Link to={`/follow/${userId}/followers`}>
-                    {user.followers.length}
-                  </Link>
-                </p>
-                <p>
-                  <Link to={`/follow/${userId}/followers`}>Followers</Link>
-                </p>
-              </div>
-              <div>
-                <p>
-                  <Link to={`/follow/${userId}/following`}>
-                    {user.following.length}
-                  </Link>
-                </p>
-                <p>
-                  <Link to={`/follow/${userId}/following`}>Following</Link>
-                </p>
+              <div className={styles.followSection}>
+                <div>
+                  <p>{data.user.posts.length}</p>
+                  <p>Posts</p>
+                </div>
+                <div>
+                  <p>
+                    <Link to={`/follow/${userId}/followers`}>
+                      {data.user.followers.length}
+                    </Link>
+                  </p>
+                  <p>
+                    <Link to={`/follow/${userId}/followers`}>Followers</Link>
+                  </p>
+                </div>
+                <div>
+                  <p>
+                    <Link to={`/follow/${userId}/following`}>
+                      {data.user.following.length}
+                    </Link>
+                  </p>
+                  <p>
+                    <Link to={`/follow/${userId}/following`}>Following</Link>
+                  </p>
+                </div>
               </div>
             </div>
+            {!(userId === mainUserId) && (
+              <div className={styles.subscribeButtonContainer}>
+                <Button
+                  isInUserPage={true}
+                  subscribed={subscribed}
+                  subHandler={subHandler}
+                />
+              </div>
+            )}
           </div>
-          {!(userId === mainUserId) && (
-        <div className={styles.subscribeButtonContainer}>
-          <Button
-            isInUserPage={true}
-            subscribed={subscribed}
-            subHandler={subHandler}
-          />
+          <div className={styles.postsContainer}>
+            {data.user.posts.map((post) => (
+              <PostLink key={post._id} post={post} />
+            ))}
+          </div>
         </div>
       )}
-        </div>
-        <div className={styles.postsContainer}>
-          {user.posts.map((post) => (
-            <PostLink key={post._id} post={post} />
-          ))}
-        </div>
-      </div>}
     </>
   );
 }
