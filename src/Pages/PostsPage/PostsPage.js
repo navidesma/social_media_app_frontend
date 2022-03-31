@@ -8,14 +8,14 @@ import { useQuery } from "react-query";
 import { uiActions } from "../../store/ui-slice";
 
 export default function PostsPage() {
-  const { token } = useSelector((state) => state.ui);
+  const { token, apiUrl } = useSelector((state) => state.ui);
 
   const dispatch = useDispatch();
 
   const { userId } = useParams();
   const getPosts = async() => {
     const result = await fetch(
-      "http://localhost:8080/user/get-user/" + userId,
+      `${apiUrl}user/get-user/` + userId,
       {
         headers: {
           Authorization: "Bearer " + token,

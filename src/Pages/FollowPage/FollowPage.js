@@ -8,7 +8,7 @@ export default function FollowPage() {
   const dispatch = useDispatch();
   const { userId, which } = useParams();
 
-  const {token} = useSelector(state => state.ui);
+  const {token, apiUrl} = useSelector(state => state.ui);
 
   // const { users } = useSelector((state) => state);
   const [follow, setFollow] = useState(null);
@@ -18,7 +18,7 @@ export default function FollowPage() {
       dispatch(uiActions.toggleNotification({mode: "loading", header: "Getting Followers/Following", message: "Please Wait"}));
       try {
         const result = await fetch(
-          `http://localhost:8080/user/get-${which}/` + userId,
+          `${apiUrl}/user/get-${which}/` + userId,
           {
             headers: {
               Authorization: "Bearer " + token,

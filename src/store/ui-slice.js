@@ -5,7 +5,7 @@ const initialState = {
   mainUserId: localStorage.getItem("mainUserId") || null,
   loggedIn: localStorage.getItem("token")? true : false,
   notification: {show: false, mode: null, header: null, message: null},
-  apiUrl: "http://127.0.0.1:8080/"
+  apiUrl: "http://185.208.79.227:8080/api/"
 };
 
 const uiSlice = createSlice({

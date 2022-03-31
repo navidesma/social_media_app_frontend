@@ -22,7 +22,7 @@ function UserPage() {
   const getUser = async () => {
     try {
       const result = await fetch(
-        "http://localhost:8080/user/get-user/" + userId,
+        `${apiUrl}user/get-user/` + userId,
         {
           headers: {
             Authorization: "Bearer " + token,

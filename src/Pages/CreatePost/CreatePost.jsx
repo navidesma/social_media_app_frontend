@@ -56,7 +56,7 @@ export default function CreatePost() {
       fd.append("image", selectedFile);
       const sendAsync = async () => {
         dispatch(uiActions.toggleNotification({mode: "loading", header: "Uploading the post", message: "Please Wait"}));
-        const result = await fetch(`${apiUrl}pos/create-posts`, {
+        const result = await fetch(`${apiUrl}post/create-posts`, {
           method: "POST",
           body: fd,
           headers: {

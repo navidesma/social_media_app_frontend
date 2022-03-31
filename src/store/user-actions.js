@@ -8,7 +8,7 @@ export const initializeFollowing = () => {
   return async (dispatch) => {
     const sendToBack = async () => {
       const result = await fetch(
-        `${apiURl}/user/get-following-no-detail/` + mainUserId,
+        `${apiURl}user/get-following-no-detail/` + mainUserId,
         {
           headers: {
             Authorization: "Bearer " + token,

@@ -10,14 +10,14 @@ import { useState } from "react";
 const buttonAdditionalStyle = {margin: "0 5px"}
 
 export default function HomePage() {
-  const { token } = useSelector((state) => state.ui);
+  const { token, apiUrl } = useSelector((state) => state.ui);
 
   const dispatch = useDispatch();
 
   const [page, setPage] = useState(1);
 
   const getPosts = async ({queryKey}) => {
-    const result = await fetch("http://localhost:8080/post/get-posts", {
+    const result = await fetch(`${apiUrl}post/get-posts`, {
       headers: {
         Authorization: "Bearer " + token,
         currentPage: queryKey[1],
