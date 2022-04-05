@@ -1,10 +1,12 @@
 import styles from "./SignUp.module.css";
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { uiActions } from "../../store/ui-slice";
 import Button from "../../Components/Button/Button";
 
 export default function SignUp() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const {apiUrl} = useSelector(state => state.ui);
 
@@ -84,16 +86,18 @@ export default function SignUp() {
       fd.append("name", name.trim());
       fd.append("password", password.trim());
       const sendAsync = async () => {
+        dispatch(uiActions.toggleNotification({mode: "loading", header: "Signing Up", message: "Please Wait"}));
         const response = await fetch(`${apiUrl}auth/signup`, {
           method: "PUT",
           body: fd,
         });
         if (!response.ok) {
-          // show error
+          dispatch(uiActions.toggleNotification({mode: "error", header: "Couldn't Log In", message: "Please try again"}));
           return;
         }
         const toJSON = await response.json()
         console.log(toJSON);
+        dispatch(uiActions.toggleNotification());
         navigate("/login");
       };
       sendAsync();

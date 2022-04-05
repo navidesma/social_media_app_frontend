@@ -1,6 +1,6 @@
 import { userActions } from "./user-slice";
 
-const apiURl = "http://127.0.0.1:8080";
+const apiURl = "http://127.0.0.1:8080/";
 const token = localStorage.getItem("token");
 const mainUserId = localStorage.getItem("mainUserId");
 
@@ -32,7 +32,7 @@ export const initializeFollowing = () => {
 export const addToFollowing = (targetUser) => {
   return async (dispatch) => {
     const sendToBack = async () => {
-      const response = await fetch(apiURl + "/user/add-following", {
+      const response = await fetch(apiURl + "user/add-following", {
         method: "PUT",
         body: JSON.stringify({ target: targetUser }),
         headers: {
@@ -57,7 +57,7 @@ export const removeFromFollowing = (targetUser) => {
   return async (dispatch) => {
     const sendToBack = async () => {
       const body = { target: targetUser };
-      const response = await fetch(apiURl + "/user/remove-following", {
+      const response = await fetch(apiURl + "user/remove-following", {
         method: "DELETE",
         body: JSON.stringify(body),
         headers: {

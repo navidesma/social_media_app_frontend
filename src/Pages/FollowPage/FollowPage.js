@@ -18,7 +18,7 @@ export default function FollowPage() {
       dispatch(uiActions.toggleNotification({mode: "loading", header: "Getting Followers/Following", message: "Please Wait"}));
       try {
         const result = await fetch(
-          `${apiUrl}/user/get-${which}/` + userId,
+          `${apiUrl}user/get-${which}/` + userId,
           {
             headers: {
               Authorization: "Bearer " + token,
