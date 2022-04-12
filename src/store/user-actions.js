@@ -2,13 +2,12 @@ import { userActions } from "./user-slice";
 
 const apiURl = "http://127.0.0.1:8080/";
 const token = localStorage.getItem("token");
-const mainUserId = localStorage.getItem("mainUserId");
 
 export const initializeFollowing = () => {
   return async (dispatch) => {
     const sendToBack = async () => {
       const result = await fetch(
-        `${apiURl}user/get-following-no-detail/` + mainUserId,
+        `${apiURl}user/get-following-no-detail/`,
         {
           headers: {
             Authorization: "Bearer " + token,
