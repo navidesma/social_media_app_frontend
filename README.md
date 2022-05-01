@@ -3,6 +3,8 @@ It is not the best react app that you have ever seen but i have tried my best fo
 <br>
 Attention: The styles are suited for mobile displays for now.
 <br>
+<img src="https://drive.google.com/uc?export=view&id=1mLxqwzogdN8H4FuBTl8h7R0M0q4jNlaV" />
+<br>
 My email:
 <br>
 g930fdgold@gmail.com
